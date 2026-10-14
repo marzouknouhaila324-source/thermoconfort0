@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THERMOCONFORT | Évaluation thermique</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a class="brand" href="#">
+            <span class="brand-icon">⌂</span>
+            <span>THERMO<span class="brand-light">CONFORT</span></span>
+        </a>
+        <span class="header-label">Évaluation par logique floue</span>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <div>
+                <p class="eyebrow">ANALYSE DE L'ENVIRONNEMENT</p>
+                <h1>Votre confort thermique</h1>
+                <p class="intro-text">
+                    Évaluez le niveau de confort à partir de la température
+                    et de l'humidité grâce à la logique floue.
+                </p>
+            </div>
+            <div class="intro-icon" aria-hidden="true">🌿</div>
+        </section>
+
+        <section class="dashboard">
+            <div class="left-column">
+                <article class="card input-card">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">PARAMÈTRES</p>
+                            <h2>Conditions ambiantes</h2>
+                        </div>
+                        <span class="heading-icon">⌁</span>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-heading">
+                            <label for="temperature">Température</label>
+                            <span class="unit">°C</span>
+                        </div>
+                        <input id="temperature" type="number"
+                               min="0" max="40" step="0.5" value="22.5">
+                        <input id="temperature-range" type="range"
+                               min="0" max="40" step="0.5" value="22.5">
+                        <div class="range-labels">
+                            <span>0 °C</span><span>40 °C</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-heading">
+                            <label for="humidite">Humidité relative</label>
+                            <span class="unit">%</span>
+                        </div>
+                        <input id="humidite" type="number"
+                               min="0" max="100" step="1" value="50">
+                        <input id="humidite-range" type="range"
+                               min="0" max="100" step="1" value="50">
+                        <div class="range-labels">
+                            <span>0 %</span><span>100 %</span>
+                        </div>
+                    </div>
+
+                    <p id="error-message" class="error-message" hidden></p>
+
+                    <button id="evaluer" type="button">
+                        <span>Évaluer le confort</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </article>
+
+                <article class="card membership-card">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">LOGIQUE FLOUE</p>
+                            <h2>Degrés d'appartenance</h2>
+                        </div>
+                    </div>
+                    <p class="card-description">
+                        Les valeurs indiquent le degré d'appartenance de
+                        chaque mesure à un ensemble flou, entre 0 et 1.
+                    </p>
+
+                    <h3 class="group-title">Température</h3>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot cold"></i> Froide</span>
+                            <strong id="froide-value">1,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="froide-bar" class="progress-fill cold-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot moderate"></i> Modérée</span>
+                            <strong id="moderee-value">1,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="moderee-bar" class="progress-fill moderate-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot hot"></i> Chaude</span>
+                            <strong id="chaude-value">0,250</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="chaude-bar" class="progress-fill hot-fill"></div>
+                        </div>
+                    </div>
+
+                    <h3 class="group-title">Humidité</h3>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot low"></i> Faible</span>
+                            <strong id="faible-value">0,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="faible-bar" class="progress-fill low-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot average"></i> Moyenne</span>
+                            <strong id="moyenne-value">1,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="moyenne-bar" class="progress-fill average-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot high"></i> Élevée</span>
+                            <strong id="elevee-value">0,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="elevee-bar" class="progress-fill high-fill"></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="right-column">
+                <article class="card result-card">
+                    <p class="eyebrow">RÉSULTAT DE L'ÉVALUATION</p>
+                    <h2>Niveau de confort</h2>
+
+                    <div id="score-circle" class="score-circle">
+                        <div class="score-inner">
+                            <strong id="score">100</strong>
+                            <span>/ 100</span>
+                        </div>
+                    </div>
+
+                    <div id="comfort-label" class="comfort-label">
+                        Confort optimal
+                    </div>
+                    <p id="result-description" class="result-description">
+                        Les conditions ambiantes sont favorables au confort thermique.
+                    </p>
+
+                    <div class="result-divider"></div>
+
+                    <h3 class="group-title">Résultats des règles floues</h3>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot bad"></i> Mauvais</span>
+                            <strong id="mauvais-value">0,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="mauvais-bar" class="progress-fill bad-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot medium"></i> Moyen</span>
+                            <strong id="moyen-value">0,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="moyen-bar" class="progress-fill medium-fill"></div>
+                        </div>
+                    </div>
+                    <div class="membership-item">
+                        <div class="membership-heading">
+                            <span><i class="dot good"></i> Bon</span>
+                            <strong id="bon-value">1,000</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="bon-bar" class="progress-fill good-fill"></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article id="advice-card" class="card advice-card">
+                    <div id="advice-icon" class="advice-icon">🌱</div>
+                    <div>
+                        <p class="eyebrow">CONSEIL</p>
+                        <h3 id="advice-title">Conditions favorables</h3>
+                        <p id="advice">
+                            Les conditions mesurées sont compatibles avec un bon confort thermique.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            <span>THERMOCONFORT</span>
+            <span>Évaluation basée sur la logique floue</span>
+        </footer>
+    </main>
+</body>
+</html>
